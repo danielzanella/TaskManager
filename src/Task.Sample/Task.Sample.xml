@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tasks>
+	<!-- Please refer to the README.md file or TaskConfigurationData.cs for more information on these options -->
+	
+	<!-- 
+		The task is considered to be late if it's been waiting for over a minute (a new thread will be spawned to run the task),
+		and it times out after 10 minutes (the running task is aborted and requeued). By default it will spawn 0 workers, and once the 
+		service starts, it will wait 1 second before the tasks start execution.
+	-->
+	<task type="Task.Sample.TestModule1" sla="00:01:00" timeout="00:10:00" spawn="0" delayStart="00:00:01">
+		<schedules>
+			<!-- Queues 5 workers. Each worker runs the task up to 10 times in a single second. Waits 1 second if task returns false (no more work) -->
+			<schedule from="00:00:00" to="08:30:00" spawn="5" timeUnit="00:00:01" maxRuns="10" wait="00:00:01" />
+			
+			<!-- Reduces to 1 worker. Runs the task once a second. Waits 10 second if task returns false (no more work) -->
+			<schedule from="08:30:00" to="12:00:00" timeUnit="00:00:01" maxRuns="1" wait="00:00:10" />
+			
+			<!-- Keeps 1 worker. Runs the task up to 10 times a second. Waits 1 second if task returns false (no more work) -->
+			<schedule from="12:00:00" to="13:00:00" spawn="1" timeUnit="00:00:01" maxRuns="10" wait="00:00:01" />
+			
+			<!-- Keeps 1 worker. Runs the task once a second. Waits 10 second if task returns false (no more work) -->
+			<schedule from="13:00:00" to="18:00:00" spawn="1" timeUnit="00:00:01" maxRuns="1" wait="00:00:10" />
+			
+			<!-- Increases to 2 workers. Runs the task up to 10 times a second. Waits 1 second if task returns false (no more work) -->
+			<schedule from="18:00:00" to="23:59:59" spawn="2" timeUnit="00:00:01" maxRuns="10" wait="00:00:01" />
+		</schedules>
+		<configuration>
+			<hello />
+			<!-- The contents in the configuration node will be passed to the Configure() method. -->
+		</configuration>
+	</task>
+</tasks>
