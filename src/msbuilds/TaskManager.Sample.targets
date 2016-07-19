@@ -1,0 +1,15 @@
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
+      <ItemGroup> 
+          <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\Task.Sample.dll" />
+          <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\Task.Sample.xml" />
+          <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\Task.Sample.dll.config" />
+      </ItemGroup>
+ 	
+      <Target Name="AfterBuild">
+          <Message Text="### Copying $(MSBuildProjectName) files ..." Importance="high" />
+
+          <Copy
+              SourceFiles="@(FilesToCopy)"
+              DestinationFolder="$(MSBuildProjectDirectory)\..\TaskManager\bin\$(Configuration)\Task.Sample\"/>     
+    </Target>
+</Project>
