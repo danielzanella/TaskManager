@@ -13,8 +13,8 @@ namespace TaskManager
     public static class CommandLine
     {
         #region Fields
-        private static string _eventLog = "Console";
-        private static string _stats = "Memory";
+        private static string _eventLog = "Windows";
+        private static string _stats = "PerformanceCounter";
         private static bool _nonStop;
         private static int _nonStopWait;
         private static bool _showHelp;
@@ -120,30 +120,32 @@ namespace TaskManager
             return new OptionSet()
             {
                 "Usage: ",
-                "   TaskManager -e <event log> -s <stats> -non-stop",
+                "   TaskManager -e <event log> -s <stats>",
                 string.Empty,
                 "Options:",
                 {
-                    "e|event-log=", "the event log. Available values are: Console and Windows. Default is: Console.", e => _eventLog = e
+                    "e|event-log=", "the event log. Available values are: Console and Windows. Default is: Windows.", e => _eventLog = e
                 },
                 {
-                    "s|stats=", "the stats strategy. Available values are: Memory and PerformanceCounter. Default is: Memory.", s => _stats = s
-                },
-                {
-                    "non-stop", "if should wait for user interaction", n => _nonStop = n != null
-                },
-                {
-                    "non-stop-wait=", "the time in milliseconds to wait to tasks run when in non-stop mode", n => _nonStopWait = Convert.ToInt32(n)
+                    "s|stats=", "the stats strategy. Available values are: Memory and PerformanceCounter. Default is: PerformanceCounter.", s => _stats = s
                 },
                 {
                     "h|help", "show this message and exit", v => _showHelp = v != null
                 },
+                // The arguments below are used to functional tests purpose only.
+                {
+                    "non-stop", "if should wait for user interaction", n => _nonStop = n != null, true
+                },
+                {
+                    "non-stop-wait=", "the time in milliseconds to wait to tasks run when in non-stop mode", n => _nonStopWait = Convert.ToInt32(n), true
+                },
+                
                 string.Empty,
                 string.Empty,
                 "Samples:",
-                "TaskManager -e Windows -s PerformanceCounter -non-stop",
+                "TaskManager.exe -e Windows -s PerformanceCounter",
                 string.Empty,
-                "TaskManager -non-stop"
+                "TaskManager.exe"
             };
         }
 
