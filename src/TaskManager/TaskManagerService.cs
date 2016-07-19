@@ -100,15 +100,20 @@ namespace TaskManager
         /// <param name="args">The arguments.</param>
         protected override void OnStart(string[] args)
         {
-            ////#if DEBUG
-            ////            System.Threading.Thread.Sleep(10000);
-            ////#endif
+////#if DEBUG
+////            System.Threading.Thread.Sleep(10000);
+////#endif
 
             LogInfo("Starting service...");
             try
             {
-                TaskSupervisor.Initialize(new PerformanceCounterStatsStrategy());
+                var eventLog = args.Length > 0 ? ArgumentsHelper.CreateEventLog(args[0]) : new WindowsEventLog();
+                var statsStrategy = args.Length > 1 ? ArgumentsHelper.CreateStatsStrategy(args[1]) : new PerformanceCounterStatsStrategy();
+
+                Initialize(eventLog);
+                TaskSupervisor.Initialize(statsStrategy);
                 ModuleSupervisor.Initialize();
+
                 LogInfo("Service successfully started...");
 
                 ModuleSupervisor.Execute();
