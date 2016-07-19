@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EC6F329A-B63D-405C-9E62-2C16888100D7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -76,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleEventLog.cs" />
+    <Compile Include="IEventLog.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="TaskSupervisor.cs" />
     <Compile Include="TaskManagerService.cs">
@@ -94,6 +94,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowsEventLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TaskManagerService.resx">
