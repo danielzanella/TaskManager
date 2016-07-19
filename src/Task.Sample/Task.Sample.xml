@@ -29,4 +29,14 @@
 			<!-- The contents in the configuration node will be passed to the Configure() method. -->
 		</configuration>
 	</task>
+
+	<task type="Task.Sample.TestModule2" sla="00:01:00" timeout="00:10:00" spawn="0" delayStart="00:00:01">
+		<schedules>
+			<schedule from="00:00:00" to="23:59:59" spawn="1" timeUnit="00:00:01" maxRuns="10" wait="00:00:01" />
+		</schedules>
+		<configuration>
+			<hello />
+			<!-- The contents in the configuration node will be passed to the Configure() method. -->
+		</configuration>
+	</task>
 </tasks>
