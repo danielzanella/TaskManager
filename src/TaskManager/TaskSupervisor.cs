@@ -55,77 +55,12 @@
         /// <summary>
         /// The SLA Thread.
         /// </summary>
-        private static Thread _threadSLA;
+        private static Thread _threadSLA;       
 
         /// <summary>
-        /// Performance counter category.
+        /// The strategy used by task supervisor to register some stats about tasks execution.
         /// </summary>
-        private static PerformanceCounterCategory _performanceCounterCategory;
-
-        /// <summary>
-        /// Counter for the number of active threads.
-        /// </summary>
-        private static PerformanceCounter _perfCounterSpawnedThreads;
-
-        /// <summary>
-        /// Counter for the maximum number of threads.
-        /// </summary>
-        private static PerformanceCounter _perfCounterMaxThreads;
-
-        /// <summary>
-        /// Counter for the number of known tasks.
-        /// </summary>
-        private static PerformanceCounter _perfCounterTasks;
-
-        /// <summary>
-        /// Counter for the number of tasks being executed.
-        /// </summary>
-        private static PerformanceCounter _perfCounterTasksRunning;
-
-        /// <summary>
-        /// Counter for the average execution time.
-        /// </summary>
-        private static PerformanceCounter _perfCounterAverageExecutionTime;
-
-        /// <summary>
-        /// Base for the average execution time counter.
-        /// </summary>
-        private static PerformanceCounter _perfCounterBaseAverageExecutionTime;
-
-        /// <summary>
-        /// Counter for the number of task exceptions caught since the service started.
-        /// </summary>
-        private static PerformanceCounter _perfCounterTotalExceptions;
-
-        /// <summary>
-        /// Counter for the number of task timeouts occurred since the service started.
-        /// </summary>
-        private static PerformanceCounter _perfCounterTotalTimeouts;
-
-        /// <summary>
-        /// Counter for the number of tasks scheduled for execution in the future.
-        /// </summary>
-        private static PerformanceCounter _perfCounterScheduledTasks;
-
-        /// <summary>
-        /// Counter for the average time a task ready to be executed has to wait before it really starts running.
-        /// </summary>
-        private static PerformanceCounter _perfCounterAverageLagTime;
-
-        /// <summary>
-        /// Base for the average lag counter.
-        /// </summary>
-        private static PerformanceCounter _perfCounterBaseAverageLagTime;
-
-        /// <summary>
-        /// Counter for the number of task exceptions caught per second.
-        /// </summary>
-        private static PerformanceCounter _perfCounterErrorsPerSecond;
-
-        /// <summary>
-        /// Counter for the number of timeouts occurred per second.
-        /// </summary>
-        private static PerformanceCounter _perfCounterTimeoutsPerSecond;
+        private static IStatsStrategy _stats;
 
         /// <summary>
         /// Initializes static members of the <see cref="TaskSupervisor"/> class.
@@ -139,18 +74,17 @@
         /// <summary>
         /// Initializes the supervisor.
         /// </summary>
-        public static void Initialize()
+        public static void Initialize(IStatsStrategy stats)
         {
+			if (stats == null) {
+				throw new ArgumentNullException ("stats");
+			}
+
+            _stats = stats;
             _taskQueue = new Queue<TaskWrapper>();
             _tasks = new List<TaskWrapper>();
             _threads = new List<TaskThread>();
-
-            CreatePerformanceCounters();
-
-            InitializePerformanceCounters();
-
-            _perfCounterMaxThreads.RawValue = TaskMaxThreads;
-
+            _stats.MaxThreads.RawValue = TaskMaxThreads;
             ZeroPerformanceCounters();
         }
 
@@ -183,7 +117,7 @@
                 }
             }
 
-            _perfCounterMaxThreads.RawValue = 0;
+            _stats.MaxThreads.RawValue = 0;
 
             ZeroPerformanceCounters();
 
@@ -215,8 +149,8 @@
                 {
                     _taskQueue.Enqueue(task);
 
-                    _perfCounterScheduledTasks.Increment();
-                    _perfCounterTasks.Increment();
+                    _stats.ScheduledTasks.Increment();
+                    _stats.Tasks.Increment();
                 }
             }
 
@@ -242,8 +176,8 @@
                 _taskQueue.Enqueue(task);
             }
 
-            _perfCounterScheduledTasks.Increment();
-            _perfCounterTasks.Increment();
+            _stats.ScheduledTasks.Increment();
+            _stats.Tasks.Increment();
 
             EnsureExecution();
         }
@@ -302,7 +236,7 @@
                     if (tt.CurrentTask == task)
                     {
                         RemoveTaskThread(tt);
-                        _perfCounterTasks.Decrement();
+                        _stats.Tasks.Decrement();
                         found = true;
                     }
                 }
@@ -343,8 +277,8 @@
                     }
                     else
                     {
-                        _perfCounterScheduledTasks.Decrement();
-                        _perfCounterTasks.Decrement();
+                        _stats.ScheduledTasks.Decrement();
+                        _stats.Tasks.Decrement();
                         found = true;
                     }
                 }
@@ -391,15 +325,15 @@
                         {
                             double lag = ((double)((TimeSpan)(DateTime.Now - task.NextAttempt)).TotalSeconds) * Stopwatch.Frequency;
 
-                            _perfCounterAverageLagTime.IncrementBy((long)lag);
-                            _perfCounterBaseAverageLagTime.Increment();
+                            _stats.AverageLagTime.IncrementBy((long)lag);
+                            _stats.BaseAverageLagTime.Increment();
 
                             if (task.BurstCounter == 0)
                             {
                                 task.BurstStart = DateTime.Now;
                             }
 
-                            _perfCounterScheduledTasks.Decrement();
+                            _stats.ScheduledTasks.Decrement();
                             Thread.MemoryBarrier();
 
                             return task;
@@ -409,7 +343,7 @@
                     }
                     catch (AppDomainUnloadedException)
                     {
-                        _perfCounterScheduledTasks.Decrement();
+                        _stats.ScheduledTasks.Decrement();
                         Thread.MemoryBarrier();
                     }
                 }
@@ -474,11 +408,11 @@
                 {
                     _taskQueue.Enqueue(task);
 
-                    _perfCounterScheduledTasks.Increment();
+                    _stats.ScheduledTasks.Increment();
 
                     if (extraSpawn)
                     {
-                        _perfCounterTasks.Increment(); // TODO: missing .Decrement() when a task is not rescheduled.
+                        _stats.Tasks.Increment(); // TODO: missing .Decrement() when a task is not rescheduled.
                     }
 
                     extraSpawn = true;
@@ -501,8 +435,8 @@
                 return false;
             }
 
-            _perfCounterTotalExceptions.Increment();
-            _perfCounterErrorsPerSecond.Increment();
+            _stats.TotalExceptions.Increment();
+            _stats.ErrorsPerSecond.Increment();
 
             TaskManagerService.Logger.Log(ex);
 
@@ -550,7 +484,7 @@
                                 }
                                 catch (AppDomainUnloadedException)
                                 {
-                                    _perfCounterScheduledTasks.Decrement();
+                                    _stats.ScheduledTasks.Decrement();
                                     Thread.MemoryBarrier();
                                 }
 
@@ -575,8 +509,8 @@
                                     for (int spawnIndex = currentSpawnCount, spawnTotal = currentSchedule.Spawn.Value; spawnIndex < spawnTotal; spawnIndex++)
                                     {
                                         _taskQueue.Enqueue(task);
-                                        _perfCounterScheduledTasks.Increment();
-                                        _perfCounterTasks.Increment();
+                                        _stats.ScheduledTasks.Increment();
+                                        _stats.Tasks.Increment();
                                     }
                                 }
                                 catch (AppDomainUnloadedException)
@@ -608,8 +542,8 @@
                                     {
                                         RemoveTaskThread(thread);
                                         SpawnTaskThread();
-                                        _perfCounterTotalTimeouts.Increment();
-                                        _perfCounterTimeoutsPerSecond.Increment();
+                                        _stats.TotalTimeouts.Increment();
+                                        _stats.TimeoutsPerSecond.Increment();
                                         Thread.MemoryBarrier();
                                         RescheduleTask(currentTask, false);
                                         hasThreadAbort = true;
@@ -677,7 +611,7 @@
                     TaskThread newThread = new TaskThread();
                     _threads.Add(newThread);
                     newThread.Start();
-                    _perfCounterSpawnedThreads.Increment();
+                    _stats.SpawnedThreads.Increment();
                 }
             }
         }
@@ -691,7 +625,7 @@
             lock (_threadsLock)
             {
                 _threads.Remove(thread);
-                _perfCounterSpawnedThreads.Decrement();
+                _stats.SpawnedThreads.Decrement();
             }
 
             thread.Stop();
@@ -718,7 +652,7 @@
         /// <param name="task">The task.</param>
         private static void NotifyStart(TaskWrapper task)
         {
-            _perfCounterTasksRunning.Increment();
+            _stats.TasksRunning.Increment();
         }
 
         /// <summary>
@@ -730,73 +664,20 @@
         {
             if (ticks != -1)
             {
-                _perfCounterAverageExecutionTime.IncrementBy(ticks);
-                _perfCounterBaseAverageExecutionTime.Increment();
+                _stats.AverageExecutionTime.IncrementBy(ticks);
+                _stats.BaseAverageExecutionTime.Increment();
             }
 
-            _perfCounterTasksRunning.Decrement();
+            _stats.TasksRunning.Decrement();
         }
 
         #region Counters
-
-        /// <summary>
-        /// Initializes the performance counters.
-        /// </summary>
-        private static void InitializePerformanceCounters()
-        {
-            _perfCounterScheduledTasks = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_SCHEDULED_TASKS, false);
-            _perfCounterSpawnedThreads = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_SPAWNED_THREADS, false);
-            _perfCounterMaxThreads = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_MAX_THREADS, false);
-            _perfCounterTasks = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_TASKS, false);
-            _perfCounterTasksRunning = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_RUNNING_TASKS, false);
-            _perfCounterAverageExecutionTime = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME, false);
-            _perfCounterBaseAverageExecutionTime = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME, false);
-            _perfCounterTotalExceptions = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_EXCEPTIONS, false);
-            _perfCounterTotalTimeouts = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_TIMEOUTS, false);
-            _perfCounterAverageLagTime = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG, false);
-            _perfCounterBaseAverageLagTime = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG, false);
-            _perfCounterErrorsPerSecond = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND, false);
-            _perfCounterTimeoutsPerSecond = new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND, false);
-        }
-
-        /// <summary>
-        /// Registers the performance counters with the operating system.
-        /// </summary>
-        private static void CreatePerformanceCounters()
-        {
-            CounterCreationDataCollection ccdc = new CounterCreationDataCollection();
-
-            ccdc.AddRange(TaskManagerInstaller.COUNTERS);
-
-            if (!PerformanceCounterCategory.Exists(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY))
-            {
-                _performanceCounterCategory = PerformanceCounterCategory.Create(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, TaskManagerInstaller.PERFORMANCE_COUNTER_DESCRIPTION, PerformanceCounterCategoryType.SingleInstance, ccdc);
-            }
-        }
-
         /// <summary>
         /// Terminates the performance counters.
         /// </summary>
         private static void ShudownPerformanceCounters()
         {
-            _perfCounterSpawnedThreads.Close();
-            _perfCounterMaxThreads.Close();
-            _perfCounterTasks.Close();
-            _perfCounterTasksRunning.Close();
-            _perfCounterAverageExecutionTime.Close();
-            _perfCounterBaseAverageExecutionTime.Close();
-            _perfCounterTotalExceptions.Close();
-            _perfCounterScheduledTasks.Close();
-            _perfCounterTotalTimeouts.Close();
-            _perfCounterAverageLagTime.Close();
-            _perfCounterBaseAverageLagTime.Close();
-            _perfCounterErrorsPerSecond.Close();
-            _perfCounterTimeoutsPerSecond.Close();
-
-            if (null != _performanceCounterCategory)
-            {
-                PerformanceCounterCategory.Delete(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY);
-            }
+            _stats.Dispose();
         }
         
         /// <summary>
@@ -804,18 +685,18 @@
         /// </summary>
         private static void ZeroPerformanceCounters()
         {
-            _perfCounterSpawnedThreads.RawValue = 0;
-            _perfCounterTasks.RawValue = 0;
-            _perfCounterTasksRunning.RawValue = 0;
-            _perfCounterAverageExecutionTime.RawValue = 0;
-            _perfCounterBaseAverageExecutionTime.RawValue = 0;
-            _perfCounterTotalExceptions.RawValue = 0;
-            _perfCounterTotalTimeouts.RawValue = 0;
-            _perfCounterScheduledTasks.RawValue = 0;
-            _perfCounterAverageLagTime.RawValue = 0;
-            _perfCounterBaseAverageLagTime.RawValue = 0;
-            _perfCounterErrorsPerSecond.RawValue = 0;
-            _perfCounterTimeoutsPerSecond.RawValue = 0;
+            _stats.SpawnedThreads.RawValue = 0;
+            _stats.Tasks.RawValue = 0;
+            _stats.TasksRunning.RawValue = 0;
+            _stats.AverageExecutionTime.RawValue = 0;
+            _stats.BaseAverageExecutionTime.RawValue = 0;
+            _stats.TotalExceptions.RawValue = 0;
+            _stats.TotalTimeouts.RawValue = 0;
+            _stats.ScheduledTasks.RawValue = 0;
+            _stats.AverageLagTime.RawValue = 0;
+            _stats.BaseAverageLagTime.RawValue = 0;
+            _stats.ErrorsPerSecond.RawValue = 0;
+            _stats.TimeoutsPerSecond.RawValue = 0;
         }
 
         #endregion

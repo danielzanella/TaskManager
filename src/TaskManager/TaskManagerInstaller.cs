@@ -11,27 +11,95 @@ namespace TaskManager
     /// </summary>
     [RunInstaller(true)]
     public partial class TaskManagerInstaller : Installer
-    {
+    {		
+		/// <summary>
+		/// The counters creation data.
+		/// </summary>
         public static CounterCreationData[] COUNTERS;
 
+		/// <summary>
+		/// The service name.
+		/// </summary>
         public static readonly string SERVICE_NAME = System.Configuration.ConfigurationManager.AppSettings["Instance.Name"] ?? "TaskManager";
+
+		/// <summary>
+		/// The service description.
+		/// </summary>
         public static readonly string SERVICE_DESCRIPTION = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
 
+		/// <summary>
+		/// The performance counter category.
+		/// </summary>
         public static readonly string PERFORMANCE_COUNTER_CATEGORY = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
+
+		/// <summary>
+		/// The performance counter description.
+		/// </summary>
         public static readonly string PERFORMANCE_COUNTER_DESCRIPTION = (System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager") + " performance counters";
 
+		/// <summary>
+		/// The spawed threads counter.
+		/// </summary>
         public const string COUNTER_SPAWNED_THREADS = "# Threads";
+
+		/// <summary>
+		/// The max threads counter.
+		/// </summary>
         public const string COUNTER_MAX_THREADS = "# Max Threads";
+
+		/// <summary>
+		/// The tasks counter.
+		/// </summary>
         public const string COUNTER_TASKS = "# Tasks";
+
+		/// <summary>
+		/// The running tasks counter.
+		/// </summary>
         public const string COUNTER_RUNNING_TASKS = "# Running Tasks";
+
+		/// <summary>
+		/// The average task time counter.
+		/// </summary>
         public const string COUNTER_AVERAGE_TASK_TIME = "Avg. Execution Time";
+
+		/// <summary>
+		/// The average task time base counter.
+		/// </summary>
         public const string BASE_COUNTER_AVERAGE_TASK_TIME = "Avg. Execution Time Base";
+
+		/// <summary>
+		/// The exceptions counter.
+		/// </summary>
         public const string COUNTER_EXCEPTIONS = "# Errors";
+
+		/// <summary>
+		/// The timeouts counter.
+		/// </summary>
         public const string COUNTER_TIMEOUTS = "# Timeouts";
+
+		/// <summary>
+		/// The scheduled tasks counter.
+		/// </summary>
         public const string COUNTER_SCHEDULED_TASKS = "# Scheduled Tasks";
+
+		/// <summary>
+		/// The average tasks lag counter.
+		/// </summary>
         public const string COUNTER_AVERAGE_TASK_LAG = "Avg. Lag Time";
+
+		/// <summary>
+		/// The average tas lag base counter.
+		/// </summary>
         public const string BASE_COUNTER_AVERAGE_TASK_LAG = "Avg. Lag Time Base";
+
+		/// <summary>
+		/// The exceptions per second counter.
+		/// </summary>
         public const string COUNTER_EXCEPTIONS_PER_SECOND = "# Errors/sec";
+
+		/// <summary>
+		/// The timeous per second counter.
+		/// </summary>
         public const string COUNTER_TIMEOUTS_PER_SECOND = "# Timeouts/sec";
 
         private ServiceInstaller _serviceInstaller;
