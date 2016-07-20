@@ -2,6 +2,7 @@ namespace TaskManager
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
     using System.ServiceProcess;
 
     /// <summary>
@@ -107,11 +108,9 @@ namespace TaskManager
             LogInfo("Starting service...");
             try
             {
-                var eventLog = args.Length > 0 ? ArgumentsHelper.CreateEventLog(args[0]) : new WindowsEventLog();
-                var statsStrategy = args.Length > 1 ? ArgumentsHelper.CreateStatsStrategy(args[1]) : new PerformanceCounterStatsStrategy();
-
-                Initialize(eventLog);
-                TaskSupervisor.Initialize(statsStrategy);
+                var options = TaskManagerOptions.Create("Start parameters: ", args);
+                Initialize(options.EventLog);
+                TaskSupervisor.Initialize(options.StatsStrategy);
                 ModuleSupervisor.Initialize();
 
                 LogInfo("Service successfully started...");
@@ -119,9 +118,11 @@ namespace TaskManager
                 ModuleSupervisor.Execute();
             }
             catch (Exception e)
-            {
-                LogError("Unable to start service.", e);
-                throw;
+            {               
+               LogError("Unable to start service.", e);
+               
+               File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TaskManager.start.error.txt"), e.Message);
+               throw;
             }
         }
 

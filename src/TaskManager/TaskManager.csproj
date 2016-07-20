@@ -88,6 +88,7 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PerformanceCounterStatsData.cs" />
     <Compile Include="PerformanceCounterStatsStrategy.cs" />
+    <Compile Include="TaskManagerOptions.cs" />
     <Compile Include="TaskSupervisor.cs" />
     <Compile Include="TaskManagerService.cs">
       <SubType>Component</SubType>

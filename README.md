@@ -39,6 +39,42 @@ Quick Instructions
 9. Start the service; Detected tasks will be recorded in the service Event Log.
 
 
+Command-line and Windows Service options
+------
+You can choose some options to run command-line and Windows services:
+
+* **Event log**
+	* Console: the event messages will be written to console.
+	* Windows: the event messages will be written to Windows Event Log system (Event log viewer).
+* **Statistics**
+	* Memory: the stats data will be available just in memory. Usefull to debugging purposes or when you do not want any stats overhead.
+	* PerformanceCounter: the stats data will be available on .NET performance counters.
+
+####Usage:
+* Command-line
+
+```shell
+TaskManager.exe -e Console -s Memory
+```
+
+```shell
+TaskManager.exe -e Windows -s PerformanceCounter
+```
+
+* Windows service
+
+You can define parameters on Services Management Console (services.msc), in the properties of your service there is a textbox called "Start parameters":
+```shell
+-e Console -s Memory
+```
+
+```shell
+-e Windows -s PerformanceCounter
+```
+
+
+
+
 Task Configuration Attributes
 ------
 

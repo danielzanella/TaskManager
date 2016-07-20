@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace TaskManager.FunctionalTests
+namespace TaskManager.UnitTests
 {
     [TestFixture]
     public class ArgumentsHelperTest

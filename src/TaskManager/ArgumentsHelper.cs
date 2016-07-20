@@ -9,6 +9,7 @@ namespace TaskManager
     /// </summary>
     public static class ArgumentsHelper
     {
+
         /// <summary>
         /// Creates the stats strategy.
         /// </summary>
@@ -41,9 +42,7 @@ namespace TaskManager
 
             try
             {
-                var instance = (T)Activator.CreateInstance(statsType);
-
-                Console.WriteLine("{0}: {1}", description, statsTypeName);
+                var instance = (T)Activator.CreateInstance(statsType);                
 
                 return instance;
             }

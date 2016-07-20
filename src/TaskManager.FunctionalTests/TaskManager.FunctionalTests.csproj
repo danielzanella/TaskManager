@@ -40,7 +40,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentsHelperTest.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="PerformanceCounterStatsStrategyTest.cs" />
   </ItemGroup>

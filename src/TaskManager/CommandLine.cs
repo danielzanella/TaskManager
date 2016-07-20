@@ -12,14 +12,6 @@ namespace TaskManager
     /// </summary>
     public static class CommandLine
     {
-        #region Fields
-        private static string _eventLog = "Windows";
-        private static string _stats = "PerformanceCounter";
-        private static bool _nonStop;
-        private static int _nonStopWait;
-        private static bool _showHelp;
-        #endregion
-
         /// <summary>
         /// Runs the command line.
         /// </summary>
@@ -33,54 +25,73 @@ namespace TaskManager
         /// <summary>
         /// Runs the task manager from the console.
         /// </summary>
-		private static void RunFromConsole(string[] args)
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "All errors should be write to catch.")]
+        private static void RunFromConsole(string[] args)
         {
-            var options = BuildOptions();
+            ShowHeader();
+            TaskManagerOptions options;
 
-            if (!ParseArguments(options, args))
+            try
             {
+                options = TaskManagerOptions.Create("TaskManager.exe", args);
+            }
+            catch(Exception ex)
+            {
+				Show("Argument parsing error: ");
+			    Show(ex.Message);
+			    Show("Try `TaskManager --help` for more information");
+                Environment.Exit(3);
                 return;
             }
 
-            WaitUserInteraction("Press ENTER to locate task modules.");
+            if (options.ShowHelp)
+            {
+                Show(options.HelpText);
+                return;
+            }
+
+            WaitUserInteraction(options, "Press ENTER to locate task modules.");
             TaskManagerService.LogInfo("Initializing service...");
 
             try
             {
-                TaskSupervisor.Initialize(ArgumentsHelper.CreateStatsStrategy(_stats));
-                TaskManagerService.Initialize(ArgumentsHelper.CreateEventLog(_eventLog));
+                Show("Event log: {0}", options.EventLog.GetType().Name);
+                Show("Stats strategy: {0}", options.StatsStrategy.GetType().Name);
+
+                TaskSupervisor.Initialize(options.StatsStrategy);
+                TaskManagerService.Initialize(options.EventLog);
                 ModuleSupervisor.Initialize();
             }
             catch (Exception e)
             {
                 TaskManagerService.LogError("Unable to initialize service.", e);
-                WaitUserInteraction();
+                WaitUserInteraction(options);
                 return;
             }
 
-            WaitUserInteraction("Press ENTER to start.");
+            WaitUserInteraction(options, "Press ENTER to start.");
 
             try
             {
                 TaskManagerService.LogInfo("Service successfully started...");
                 ModuleSupervisor.Execute();
 
-                if (_nonStop && _nonStopWait > 0)
+                if (options.NonStop && options.NonStopWait > 0)
                 {
-                    Console.WriteLine("Waiting {0} milliseconds to tasks execution...", _nonStopWait);
-                    Thread.Sleep(_nonStopWait);
+                    Show("Waiting {0} milliseconds to tasks execution...", options.NonStopWait);
+                    Thread.Sleep(options.NonStopWait);
                 }
             }
             catch (Exception e)
             {
                 TaskManagerService.LogError("Unable to start service.", e);
-                WaitUserInteraction();
+                WaitUserInteraction(options);
 
                 return;
             }
 
             // If you are debugging, you can freeze the main thread here.
-            WaitUserInteraction("Press ENTER to stop.");
+            WaitUserInteraction(options, "Press ENTER to stop.");
 
             TaskManagerService.LogInfo("Stopping service...");
             try
@@ -95,92 +106,25 @@ namespace TaskManager
                 return;
             }
 
-            WaitUserInteraction("Press ENTER to finish.");
+            WaitUserInteraction(options, "Press ENTER to finish.");
         }
 
-        private static void WaitUserInteraction(string message = null)
+        private static void WaitUserInteraction(TaskManagerOptions options, string message = null)
         {
-            if (!_nonStop)
+            if (!options.NonStop)
             {
-                Console.WriteLine(String.IsNullOrEmpty(message) ? "Press ENTER to continue" : message);
+                Show(String.IsNullOrEmpty(message) ? "Press ENTER to continue" : message);
                 Console.ReadLine();
             }
         }
 
-        private static void ShowHeader(string webApiUrl, string version)
+        private static void ShowHeader()
         {
             NewLine();
-            Show("TaskManager {0} by Daniel Zanella (@daniel_zanella)", version);
-            Show(webApiUrl);
+            Show("TaskManager by Daniel Zanella (@daniel_zanella)", typeof(CommandLine).Assembly.GetName().Version);
             NewLine();
         }
-
-        private static OptionSet BuildOptions()
-        {
-            return new OptionSet()
-            {
-                "Usage: ",
-                "   TaskManager -e <event log> -s <stats>",
-                string.Empty,
-                "Options:",
-                {
-                    "e|event-log=", "the event log. Available values are: Console and Windows. Default is: Windows.", e => _eventLog = e
-                },
-                {
-                    "s|stats=", "the stats strategy. Available values are: Memory and PerformanceCounter. Default is: PerformanceCounter.", s => _stats = s
-                },
-                {
-                    "h|help", "show this message and exit", v => _showHelp = v != null
-                },
-                // The arguments below are used to functional tests purpose only.
-                {
-                    "non-stop", "if should wait for user interaction", n => _nonStop = n != null, true
-                },
-                {
-                    "non-stop-wait=", "the time in milliseconds to wait to tasks run when in non-stop mode", n => _nonStopWait = Convert.ToInt32(n), true
-                },
-                
-                string.Empty,
-                string.Empty,
-                "Samples:",
-                "TaskManager.exe -e Windows -s PerformanceCounter",
-                string.Empty,
-                "TaskManager.exe"
-            };
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "All errors should be write to console.")]
-        private static bool ParseArguments(OptionSet optionsSet, string[] args)
-        {
-            try
-            {
-                try
-                {
-                    optionsSet.Parse(args);
-                }
-                catch (OptionException e)
-                {
-                    Console.Write("Argument parsing error: ");
-                    Show(e.Message);
-                    Show("Try `TaskManager --help` for more information");
-                    return false;
-                }
-
-                if (_showHelp)
-                {
-                    optionsSet.WriteOptionDescriptions(Console.Out);
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Show("ERROR: {0}", ex.Message);
-                Environment.Exit(3);
-            }
-
-            return true;
-        }
-
+      
         private static void Show(string message, params object[] args)
         {
             Console.WriteLine(message, args);
