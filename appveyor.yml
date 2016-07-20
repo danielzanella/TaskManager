@@ -1,6 +1,6 @@
 version: 1.0.{build}
 os: Visual Studio 2015
-configuration: Debug
+configuration: Release
 environment:
   COVERALLS_REPO_TOKEN:
     # Get the token raw value from https://coveralls.io/github/<repo owner>/<repo name>
