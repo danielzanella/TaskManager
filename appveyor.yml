@@ -1,0 +1,61 @@
+version: 1.0.{build}
+os: Visual Studio 2015
+configuration: Debug
+environment:
+  COVERALLS_REPO_TOKEN:
+    # Get the token raw value from https://coveralls.io/github/<repo owner>/<repo name>
+    # then use this page https://ci.appveyor.com/tools/encrypt to get the token value below.
+    secure: 1hFh31y3JKNg3ifrCNXy509snuUEckYGW4//lXjDSZ1DK+5SZzKHW/8sJfGM3xGs
+  GITHUB_REPO_TOKEN:
+    # Get the token raw value from https://github.com/settings/tokens
+    # then use this page https://ci.appveyor.com/tools/encrypt to get the token value below.
+    secure: Jmpeow5aAcDhUHkwac/AC6MzQciGc9TLgrp5oz4U0gyAwCWGqqxJhmjz3AVrWp/V	
+install: 
+- cmd: choco install resharper-clt.portable
+- cmd: choco install fxcop
+
+nuget:
+  account_feed: true
+  project_feed: true
+  
+before_build:
+- cmd: nuget restore .\src\TaskManager.sln
+
+build:
+  project: src\TaskManager.sln
+  verbosity: minimal
+
+after_build:
+- cmd: >-    
+    "C:\Program Files (x86)\Microsoft Fxcop 10.0\FxCopCmd.exe" /project:.\src\TaskManager.FxCop /out:.\tools\fxcop-report.xml
+    
+    .\tools\BadgesSharpCmd.exe -o giacomelli -r TaskManager -b FxCop -c ".\tools\fxcop-report.xml" -a %GITHUB_REPO_TOKEN%
+    
+    .\tools\StyleCopCmd\Net.SF.StyleCopCmd.Console\StyleCopCmd.exe -sf .\src\TaskManager.sln --styleCopSettingsFile .\src\Settings.StyleCop -of .\tools\stylecop-report.xml --ignoreFilePattern .+Test\.cs
+    
+    .\tools\BadgesSharpCmd.exe -o giacomelli -r TaskManager -b StyleCop -c ".\tools\stylecop-report.violations.xml" -a %GITHUB_REPO_TOKEN%
+    
+    C:\ProgramData\chocolatey\lib\resharper-clt.portable\tools\dupfinder.exe /output=.\tools\dupFinder-Report.xml /show-text /exclude=**\*Test.cs;**\*.feature.cs;**\BundleConfig.cs .\src\TaskManager.sln
+    
+    .\tools\BadgesSharpCmd.exe -o giacomelli -r TaskManager -b DupFinder -c .\tools\dupFinder-Report.xml -a %GITHUB_REPO_TOKEN%
+
+    mkdir .\src\nuget
+
+    nuget pack .\src\TaskManager\TaskManager.csproj -IncludeReferencedProjects -Version %APPVEYOR_BUILD_VERSION% -OutputDirectory .\src\nuget
+
+test_script:
+- ps: >-
+    .\src\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe -register:user "-targetargs:""src\TaskManager.UnitTests\bin\$env:CONFIGURATION\TaskManager.UnitTests.dll","src\TaskManager.FunctionalTests\bin\$env:CONFIGURATION\TaskManager.FunctionalTests.dll"" /noshadow" -filter:"+[TaskManager]*" -output:opencoverCoverage.xml
+
+
+
+    .\src\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+artifacts:
+  - path: .\tools\fxcop-report.xml
+    name: FxCop-Report  
+  - path: .\tools\stylecop-report.xml
+    name: StyleCop-Report     
+  - path: .\tools\dupFinder-report.xml
+    name: DupFinder-report 
+  - path: .\src\nuget\*.nupkg
+    name: NuGet packages
