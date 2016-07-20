@@ -17,6 +17,21 @@ namespace TaskManager.FunctionalTests
         private const int NonStopWait = 30000;
 #endif
 
+        [TestFixtureSetUp]
+        public void SetUpAllTests()
+        {
+            ProcessHelper.KillAll("cmd");
+        }
+
+
+        [TestFixtureTearDown]
+        public void TearDownAllTests()
+        {
+            Run("ServiceStop.cmd", waitForExit: false);
+            Run("ServiceUninstall.cmd");
+            ProcessHelper.KillAll("cmd");
+        }
+
         [Test]
         public void RunForConsole_NoArgs_UseDefaultsAndRunTasks()
         {
@@ -102,7 +117,7 @@ namespace TaskManager.FunctionalTests
             }
 
             args += "-non-stop -non-stop-wait " + NonStopWait;
-            args += extraArguments;
+            args += " " + extraArguments;
                 
 
             return Run("TaskManager.exe", args);
