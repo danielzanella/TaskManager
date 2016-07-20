@@ -45,7 +45,7 @@ after_build:
 
 test_script:
 - ps: >-
-    .nunit3-console.exe "src\TaskManager.FunctionalTests\bin\$env:CONFIGURATION\TaskManager.FunctionalTests.dll"
+    nunit3-console.exe "src\TaskManager.FunctionalTests\bin\$env:CONFIGURATION\TaskManager.FunctionalTests.dll"
     
 
 
