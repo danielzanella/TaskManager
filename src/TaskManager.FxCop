@@ -1,0 +1,1931 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="10.0" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">$(FxCopDir)\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="pt-BR" />
+  <OverrideRuleVisibilities>True</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>True</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>True</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/TaskManager.Common/bin/Release/TaskManager.Common.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/TaskManager.Loader/bin/Release/TaskManager.Loader.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/TaskManager/bin/Release/TaskManager.exe" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/ZipTool/bin/Release/ZipTool.exe" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityTransparencyRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="10.0">
+  <Namespaces>
+   <Namespace Name="TaskManager.Common">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2016-07-20 13:26:47Z">
+      <Issue>
+       <Item>TaskManager.Common</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/TaskManager.Common/bin/Release/TaskManager.Common.dll">
+    <Modules>
+     <Module Name="taskmanager.common.dll">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2016-07-20 13:26:47Z">
+        <Issue Name="NoStrongName">
+         <Item>'TaskManager.Common.dll'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="TaskManager.Common">
+        <Types>
+         <Type Name="ITaskConfigurationData">
+          <Members>
+           <Member Name="#SLA">
+            <Messages>
+             <Message Id="SLA" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SLA</Item>
+               <Item>'ITaskConfigurationData.SLA'</Item>
+               <Item>Sla</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="TaskManager.Configuration">
+        <Types>
+         <Type Name="ConfigurationHelpers">
+          <Members>
+           <Member Name="#DefaultSLA">
+            <Messages>
+             <Message Id="SLA" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SLA</Item>
+               <Item>'ConfigurationHelpers.DefaultSLA'</Item>
+               <Item>Sla</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsValidConfigurationFile(System.String)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ConfigurationHelpers.IsValidConfigurationFile(this string)'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MakeAttributeErrorMessage(System.Xml.Linq.XElement,System.String,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'ConfigurationHelpers.MakeAttributeErrorMessage(this XElement, string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'ConfigurationHelpers.MakeAttributeErrorMessage(this XElement, string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MakeElementErrorMessage(System.Xml.Linq.XElement,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'ConfigurationHelpers.MakeElementErrorMessage(this XElement, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'ConfigurationHelpers.MakeElementErrorMessage(this XElement, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToTimeSpan(System.String)">
+            <Messages>
+             <Message Id="System.TimeSpan.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternate">
+               <Item>'TimeSpan.Parse(string)'</Item>
+               <Item>'ConfigurationHelpers.ToTimeSpan(this string)'</Item>
+               <Item>'TimeSpan.Parse(string, IFormatProvider)'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskConfigurationData">
+          <Members>
+           <Member Name="#LoadFrom(System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'TaskConfigurationData.LoadFrom(string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/TaskManager.Loader/bin/Release/TaskManager.Loader.dll">
+    <Modules>
+     <Module Name="taskmanager.loader.dll">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2016-07-20 13:26:47Z">
+        <Issue Name="NoStrongName">
+         <Item>'TaskManager.Loader.dll'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Created="2016-07-20 13:26:47Z">
+        <Issue>
+         <Item>'TaskManager.Loader.dll'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="TaskManager">
+        <Types>
+         <Type Name="Loader">
+          <Members>
+           <Member Name="#CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <Messages>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Name="Member">
+               <Item>'Loader.CurrentDomain_AssemblyResolve(object, ResolveEventArgs)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Compare(System.String,System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.Compare(string, string)'</Item>
+               <Item>'Loader.CurrentDomain_AssemblyResolve(object, ResolveEventArgs)'</Item>
+               <Item>'string.Compare(string, string, StringComparison)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.Compare(string, string)'</Item>
+               <Item>'Loader.CurrentDomain_AssemblyResolve(object, ResolveEventArgs)'</Item>
+               <Item>'string.Compare(string, string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CurrentDomain_UnhandledException(System.Object,System.UnhandledExceptionEventArgs)">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'Loader.CurrentDomain_UnhandledException(object, UnhandledExceptionEventArgs)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>'Loader.CurrentDomain_UnhandledException(object, UnhandledExceptionEventArgs)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Name="Member">
+               <Item>'Loader.CurrentDomain_UnhandledException(object, UnhandledExceptionEventArgs)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Loader.CurrentDomain_UnhandledException(object, UnhandledExceptionEventArgs)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadAndConfigure(System.String,System.String,TaskManager.ILogger,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Loader.LoadAndConfigure(string, string, ILogger, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Loader.LoadAndConfigure(string, string, ILogger, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'Loader.LoadAndConfigure(string, string, ILogger, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskWrapper">
+          <Members>
+           <Member Name="#_logger">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskWrapper._logger'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Configure(System.Xml.Linq.XElement)">
+            <Messages>
+             <Message Id="0#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskWrapper.Configure(XElement)'</Item>
+               <Item>'node'</Item>
+               <Item>'configuration'</Item>
+               <Item>'ITaskModule.Configure(XElement)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#DLLFile">
+            <Messages>
+             <Message Id="DLL" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>DLL</Item>
+               <Item>'TaskWrapper.DLLFile'</Item>
+               <Item>Dll</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/TaskManager/bin/Release/TaskManager.exe">
+    <Modules>
+     <Module Name="taskmanager.exe">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2016-07-20 13:26:47Z">
+        <Issue Name="NoStrongName">
+         <Item>'TaskManager.exe'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Created="2016-07-20 13:26:47Z">
+        <Issue>
+         <Item>'TaskManager.exe'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824" Created="2016-07-20 13:26:47Z">
+        <Issue>
+         <Item>'TaskManager.exe'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="TaskManager">
+        <Types>
+         <Type Name="CommandLine">
+          <Members>
+           <Member Name="#HideConsoleWindow()">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'CommandLine.HideConsoleWindow()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Logger">
+          <Members>
+           <Member Name="#Log(System.String)">
+            <Messages>
+             <Message Id="0#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'Logger.Log(string)'</Item>
+               <Item>'text'</Item>
+               <Item>'message'</Item>
+               <Item>'ILogger.Log(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Log(System.String,System.Exception)">
+            <Messages>
+             <Message Id="0#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'Logger.Log(string, Exception)'</Item>
+               <Item>'text'</Item>
+               <Item>'message'</Item>
+               <Item>'ILogger.Log(string, Exception)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ModuleSupervisor">
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Execute()">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'ModuleSupervisor.Execute()'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.Execute()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FileSystem_Event(System.Object,System.IO.FileSystemEventArgs)">
+            <Messages>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Name="Member">
+               <Item>'ModuleSupervisor.FileSystem_Event(object, FileSystemEventArgs)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FileSystem_Renamed(System.Object,System.IO.RenamedEventArgs)">
+            <Messages>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Name="Member">
+               <Item>'ModuleSupervisor.FileSystem_Renamed(object, RenamedEventArgs)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#HandleFileSystemEvent(System.IO.FileSystemEventArgs,System.String,System.String)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor.HandleFileSystemEvent(FileSystemEventArgs, string, string)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'ModuleSupervisor.HandleFileSystemEvent(FileSystemEventArgs, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'ModuleSupervisor.HandleFileSystemEvent(FileSystemEventArgs, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'ModuleSupervisor.HandleFileSystemEvent(FileSystemEventArgs, string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Initialize()">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'ModuleSupervisor.Initialize()'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadAndConfigure(System.Boolean)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadAndConfigure(System.String,System.String,System.Boolean)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(string, string, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.EndsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.EndsWith(string)'</Item>
+               <Item>'ModuleSupervisor.LoadAndConfigure(string, string, bool)'</Item>
+               <Item>'string.EndsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadZipAndConfigure(System.String,System.Boolean)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.EndsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.EndsWith(string)'</Item>
+               <Item>'ModuleSupervisor.LoadZipAndConfigure(string, bool)'</Item>
+               <Item>'string.EndsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Shutdown()">
+            <Messages>
+             <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor.Shutdown()'</Item>
+               <Item>'FileSystemWatcher.EnableRaisingEvents.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.Shutdown()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Shutdown()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.Shutdown()'</Item>
+               <Item>'FileSystemWatcher.EnableRaisingEvents.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.Shutdown()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Shutdown()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStop()'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'ModuleSupervisor.Shutdown()'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#StartMonitoringFileSystem()">
+            <Messages>
+             <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Changed.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Changed.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Created.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Created.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Deleted.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Deleted.add(FileSystemEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.EnableRaisingEvents.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.EnableRaisingEvents.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.IncludeSubdirectories.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.IncludeSubdirectories.set(bool)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.NotifyFilter.set(NotifyFilters)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.NotifyFilter.set(NotifyFilters)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Renamed.add(RenamedEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'CommandLine.RunFromConsole(string[])'&#xD;&#xA;   -&gt;'CommandLine.Run(string[])'</Item>
+              </Issue>
+              <Issue>
+               <Item>'ModuleSupervisor.StartMonitoringFileSystem()'</Item>
+               <Item>'FileSystemWatcher.Renamed.add(RenamedEventHandler)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.StartMonitoringFileSystem()'&#xD;&#xA;   -&gt;'ModuleSupervisor.Initialize()'&#xD;&#xA;   -&gt;'TaskManagerService.OnStart(string[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#StopModule(TaskManager.ModuleSupervisor+ModuleData)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.StopModule(ModuleSupervisor.ModuleData)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.StopModule(ModuleSupervisor.ModuleData)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ModuleSupervisor.StopModule(ModuleSupervisor.ModuleData)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ModuleSupervisor+ModuleData">
+          <Members>
+           <Member Name="#BasePath">
+            <Accessors>
+             <Accessor Name="#get_BasePath()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2016-07-20 13:26:47Z">
+                <Issue>
+                 <Item>'ModuleSupervisor.ModuleData.BasePath.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#Tasks">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'ModuleSupervisor.ModuleData.Tasks'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NativeMethods">
+          <Members>
+           <Member Name="#AllocConsole()">
+            <Messages>
+             <Message TypeName="MarkBooleanPInvokeArgumentsWithMarshalAs" Category="Microsoft.Interoperability" CheckId="CA1414" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Return">
+               <Item>'NativeMethods.AllocConsole()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetConsoleWindow()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2016-07-20 13:27:31Z">
+              <Issue Certainty="50">
+               <Item>'NativeMethods.GetConsoleWindow()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ShowWindow(System.IntPtr,System.Int32)">
+            <Messages>
+             <Message TypeName="MarkBooleanPInvokeArgumentsWithMarshalAs" Category="Microsoft.Interoperability" CheckId="CA1414" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Return">
+               <Item>'NativeMethods.ShowWindow(IntPtr, int)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskManagerInstaller">
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskManagerInstaller'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BASE_COUNTER_AVERAGE_TASK_LAG">
+            <Messages>
+             <Message Id="AVERAGE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>AVERAGE</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Average</Item>
+              </Issue>
+             </Message>
+             <Message Id="BASE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>BASE</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Base</Item>
+              </Issue>
+             </Message>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="LAG" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>LAG</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Lag</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASK" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASK</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Task</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_LAG'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BASE_COUNTER_AVERAGE_TASK_TIME">
+            <Messages>
+             <Message Id="AVERAGE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>AVERAGE</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Average</Item>
+              </Issue>
+             </Message>
+             <Message Id="BASE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>BASE</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Base</Item>
+              </Issue>
+             </Message>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASK" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASK</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Task</Item>
+              </Issue>
+             </Message>
+             <Message Id="TIME" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TIME</Item>
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Time</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.BASE_COUNTER_AVERAGE_TASK_TIME'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_AVERAGE_TASK_LAG">
+            <Messages>
+             <Message Id="AVERAGE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>AVERAGE</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Average</Item>
+              </Issue>
+             </Message>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="LAG" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>LAG</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Lag</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASK" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASK</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG'</Item>
+               <Item>Task</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_LAG'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_AVERAGE_TASK_TIME">
+            <Messages>
+             <Message Id="AVERAGE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>AVERAGE</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Average</Item>
+              </Issue>
+             </Message>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASK" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASK</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Task</Item>
+              </Issue>
+             </Message>
+             <Message Id="TIME" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TIME</Item>
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME'</Item>
+               <Item>Time</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_AVERAGE_TASK_TIME'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_EXCEPTIONS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="EXCEPTIONS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>EXCEPTIONS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS'</Item>
+               <Item>Exceptions</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_EXCEPTIONS_PER_SECOND">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="EXCEPTIONS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>EXCEPTIONS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND'</Item>
+               <Item>Exceptions</Item>
+              </Issue>
+             </Message>
+             <Message Id="PER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>PER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND'</Item>
+               <Item>Per</Item>
+              </Issue>
+             </Message>
+             <Message Id="SECOND" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SECOND</Item>
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND'</Item>
+               <Item>Second</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_EXCEPTIONS_PER_SECOND'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_MAX_THREADS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_MAX_THREADS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="MAX" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>MAX</Item>
+               <Item>'TaskManagerInstaller.COUNTER_MAX_THREADS'</Item>
+               <Item>Max</Item>
+              </Issue>
+             </Message>
+             <Message Id="THREADS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>THREADS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_MAX_THREADS'</Item>
+               <Item>Threads</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_MAX_THREADS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_RUNNING_TASKS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_RUNNING_TASKS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="RUNNING" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>RUNNING</Item>
+               <Item>'TaskManagerInstaller.COUNTER_RUNNING_TASKS'</Item>
+               <Item>Running</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASKS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASKS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_RUNNING_TASKS'</Item>
+               <Item>Tasks</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_RUNNING_TASKS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_SCHEDULED_TASKS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SCHEDULED_TASKS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="SCHEDULED" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SCHEDULED</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SCHEDULED_TASKS'</Item>
+               <Item>Scheduled</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASKS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASKS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SCHEDULED_TASKS'</Item>
+               <Item>Tasks</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_SCHEDULED_TASKS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_SPAWNED_THREADS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SPAWNED_THREADS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="SPAWNED" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SPAWNED</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SPAWNED_THREADS'</Item>
+               <Item>Spawned</Item>
+              </Issue>
+             </Message>
+             <Message Id="THREADS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>THREADS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_SPAWNED_THREADS'</Item>
+               <Item>Threads</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_SPAWNED_THREADS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_TASKS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TASKS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="TASKS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TASKS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TASKS'</Item>
+               <Item>Tasks</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_TASKS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_TIMEOUTS">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="TIMEOUTS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TIMEOUTS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS'</Item>
+               <Item>Timeouts</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTER_TIMEOUTS_PER_SECOND">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="PER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>PER</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND'</Item>
+               <Item>Per</Item>
+              </Issue>
+             </Message>
+             <Message Id="SECOND" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SECOND</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND'</Item>
+               <Item>Second</Item>
+              </Issue>
+             </Message>
+             <Message Id="TIMEOUTS" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>TIMEOUTS</Item>
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND'</Item>
+               <Item>Timeouts</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#COUNTERS">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskManagerInstaller.COUNTERS'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PERFORMANCE_COUNTER_CATEGORY">
+            <Messages>
+             <Message Id="CATEGORY" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>CATEGORY</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY'</Item>
+               <Item>Category</Item>
+              </Issue>
+             </Message>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="PERFORMANCE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>PERFORMANCE</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY'</Item>
+               <Item>Performance</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PERFORMANCE_COUNTER_DESCRIPTION">
+            <Messages>
+             <Message Id="COUNTER" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>COUNTER</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_DESCRIPTION'</Item>
+               <Item>Counter</Item>
+              </Issue>
+             </Message>
+             <Message Id="DESCRIPTION" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>DESCRIPTION</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_DESCRIPTION'</Item>
+               <Item>Description</Item>
+              </Issue>
+             </Message>
+             <Message Id="PERFORMANCE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>PERFORMANCE</Item>
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_DESCRIPTION'</Item>
+               <Item>Performance</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.PERFORMANCE_COUNTER_DESCRIPTION'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SERVICE_DESCRIPTION">
+            <Messages>
+             <Message Id="DESCRIPTION" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>DESCRIPTION</Item>
+               <Item>'TaskManagerInstaller.SERVICE_DESCRIPTION'</Item>
+               <Item>Description</Item>
+              </Issue>
+             </Message>
+             <Message Id="SERVICE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SERVICE</Item>
+               <Item>'TaskManagerInstaller.SERVICE_DESCRIPTION'</Item>
+               <Item>Service</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.SERVICE_DESCRIPTION'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SERVICE_NAME">
+            <Messages>
+             <Message Id="NAME" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>NAME</Item>
+               <Item>'TaskManagerInstaller.SERVICE_NAME'</Item>
+               <Item>Name</Item>
+              </Issue>
+             </Message>
+             <Message Id="SERVICE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>SERVICE</Item>
+               <Item>'TaskManagerInstaller.SERVICE_NAME'</Item>
+               <Item>Service</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Member">
+               <Item>'TaskManagerInstaller.SERVICE_NAME'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskManagerService">
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskManagerService'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LogError(System.String,System.Exception)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'TaskManagerService.LogError(string, Exception)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskSupervisor">
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskSupervisor'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#AddTask(TaskManager.TaskWrapper)">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'TaskSupervisor.AddTask(TaskWrapper)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#NotifyEnd(TaskManager.TaskWrapper,System.Int64)">
+            <Messages>
+             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2016-07-20 13:26:47Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'task'</Item>
+               <Item>'TaskSupervisor.NotifyEnd(TaskWrapper, long)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#NotifyException(System.String,System.Exception)">
+            <Messages>
+             <Message Id="message" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2016-07-20 13:26:47Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'message'</Item>
+               <Item>'TaskSupervisor.NotifyException(string, Exception)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#NotifyStart(TaskManager.TaskWrapper)">
+            <Messages>
+             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2016-07-20 13:26:47Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'task'</Item>
+               <Item>'TaskSupervisor.NotifyStart(TaskWrapper)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RemoveTask(TaskManager.TaskWrapper)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'TaskSupervisor.RemoveTask(TaskWrapper)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'TaskSupervisor.RemoveTask(TaskWrapper)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ScheduleTask(TaskManager.TaskWrapper)">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'TaskSupervisor.ScheduleTask(TaskWrapper)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Shutdown()">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2016-07-20 13:26:47Z">
+              <Issue Name="TooGeneric">
+               <Item>'TaskSupervisor.Shutdown()'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SLALoopWorker()">
+            <Messages>
+             <Message Id="SLA" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Name="Member">
+               <Item>SLA</Item>
+               <Item>'TaskSupervisor.SLALoopWorker()'</Item>
+               <Item>Sla</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskSupervisor+TaskThread">
+          <Members>
+           <Member Name="#Start()">
+            <Messages>
+             <Message Id="System.Int32.ToString" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'int.ToString()'</Item>
+               <Item>'TaskSupervisor.TaskThread.Start()'</Item>
+               <Item>'int.ToString(IFormatProvider)'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/ZipTool/bin/Release/ZipTool.exe">
+    <Modules>
+     <Module Name="ziptool.exe">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2016-07-20 13:26:47Z">
+        <Issue Name="NoStrongName">
+         <Item>'ZipTool.exe'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Created="2016-07-20 13:26:47Z">
+        <Issue>
+         <Item>'ZipTool.exe'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="MZipTool">
+        <Types>
+         <Type Name="Extensions">
+          <Members>
+           <Member Name="#Capitalize(System.String)">
+            <Messages>
+             <Message Id="System.String.ToUpper" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToUpper()'</Item>
+               <Item>'Extensions.Capitalize(this string)'</Item>
+               <Item>'string.ToUpper(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ValueOrNull(System.Xml.XmlAttribute)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2016-07-20 13:26:47Z">
+              <Issue Name="Xml">
+               <Item>'Extensions.ValueOrNull(this XmlAttribute)'</Item>
+               <Item>'XmlAttribute'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Program">
+          <Members>
+           <Member Name="#Dispatch(System.Collections.Generic.List`1&lt;MZipTool.Program+Operation&gt;,System.IO.Compression.ZipArchive)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="NormalizeStringsToUppercase" Category="Microsoft.Globalization" CheckId="CA1308" Created="2016-07-20 13:26:47Z">
+              <Issue Name="ToUpperInvariant">
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>'string.ToLowerInvariant()'</Item>
+              </Issue>
+              <Issue Name="ToUpperInvariant">
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>'string.ToLowerInvariant()'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator !=(string, string)'</Item>
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+              </Issue>
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator !=(string, string)'</Item>
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+              </Issue>
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.EndsWith(System.String,System.StringComparison)" TypeName="UseOrdinalStringComparison" Category="Microsoft.Globalization" CheckId="CA1309" Created="2016-07-20 13:26:47Z">
+              <Issue Name="StringComparison">
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>StringComparison.InvariantCultureIgnoreCase</Item>
+               <Item>'string.EndsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.StartsWith(System.String,System.StringComparison)" TypeName="UseOrdinalStringComparison" Category="Microsoft.Globalization" CheckId="CA1309" Created="2016-07-20 13:26:47Z">
+              <Issue Name="StringComparison">
+               <Item>'Program.Dispatch(List&lt;Program.Operation&gt;, ZipArchive)'</Item>
+               <Item>StringComparison.InvariantCultureIgnoreCase</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FileCommand(System.Collections.Generic.Queue`1&lt;System.String&gt;,System.String)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.IndexOf(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.IndexOf(string)'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.IndexOf(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'Program.FileCommand(Queue&lt;string&gt;, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InspectFile(System.Collections.Generic.Queue`1&lt;System.String&gt;,System.Boolean)">
+            <Messages>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2016-07-20 13:26:47Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'Program.InspectFile(Queue&lt;string&gt;, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Main(System.String[])">
+            <Messages>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Program.Main(string[])'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.EndsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.EndsWith(string)'</Item>
+               <Item>'Program.Main(string[])'</Item>
+               <Item>'string.EndsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2016-07-20 13:26:47Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.Main(string[])'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'Program.Main(string[])'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ReturnParameter(System.Collections.Generic.Queue`1&lt;System.String&gt;&amp;,System.String,System.Int32)">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue Level="CriticalWarning">
+               <Item>'parameters'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Program+Operation">
+          <Messages>
+           <Message TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815" Created="2016-07-20 13:27:31Z">
+            <Issue Name="Equals">
+             <Item>'Program.Operation'</Item>
+            </Issue>
+            <Issue Name="op_Equality">
+             <Item>'Program.Operation'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Filter">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'Program.Operation.Filter'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Type">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2016-07-20 13:27:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'Program.Operation.Type'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
+    <Resolution Name="NoStrongName">Sign {0} with a strong name key.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823">
+    <Resolution Name="Default">It appears that field {0} is never used or is only ever assigned to. Use this field or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
+    <Resolution Name="Default">Modify {0} to catch a more specific exception than {1} or rethrow the exception.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Because field {0} is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122">
+    <Resolution Name="Default">{0} calls into {1} which has a LinkDemand. By making this call, {1} is indirectly exposed to user code. Review the following call stack that might expose a way to circumvent security protection: {2}</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
+    <Resolution Name="Default">Consider a design that does not require that {0} be a reference parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201">
+    <Resolution Name="TooGeneric">{0} creates an exception of type {1}, an exception type that is not sufficiently specific and should never be raised by user code. If this exception instance might be thrown, use a different exception type.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Member">Correct the casing of '{0}' in member name {1} by changing it to '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
+    <Resolution Name="Member">Remove the underscores from member name {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810">
+    <Resolution Name="Default">Initialize all static fields in {0} when those fields are declared and remove the explicit static constructor.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014">
+    <Resolution Name="Default">Mark {0} with CLSCompliant(true) because it exposes externally visible types.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824">
+    <Resolution Name="Default">Because assembly {0} contains a ResX-based resource file, mark it with the NeutralResourcesLanguage attribute, specifying the language of the resources within the assembly. This could improve lookup performance the first time a resource is retrieved.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkBooleanPInvokeArgumentsWithMarshalAs" Category="Microsoft.Interoperability" CheckId="CA1414">
+    <Resolution Name="Return">Add the MarshalAsAttribute to the return type of P/Invoke {0}. If the corresponding unmanaged return type is a 4-byte Win32 'BOOL', use MarshalAs(UnmanagedType.Bool). For a 1-byte C++ 'bool', use MarshalAs(UnmanagedType.U1).</Resolution>
+   </Rule>
+   <Rule TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059">
+    <Resolution Name="Xml">Modify member {0} so that it no longer exposes the concrete type {1}. Use IXPathNavigable to represent XML data sources.</Resolution>
+   </Rule>
+   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
+    <Resolution Name="Default">Consider making {0} non-public or a constant.</Resolution>
+   </Rule>
+   <Rule TypeName="NormalizeStringsToUppercase" Category="Microsoft.Globalization" CheckId="CA1308">
+    <Resolution Name="ToUpperInvariant">In method {0}, replace the call to {1} with String.ToUpperInvariant().</Resolution>
+   </Rule>
+   <Rule TypeName="OverrideEqualsAndOperatorEqualsOnValueTypes" Category="Microsoft.Performance" CheckId="CA1815">
+    <Resolution Name="Equals">{0} should override Equals.</Resolution>
+    <Resolution Name="op_Equality">{0} should override the equality (==) and inequality (!=) operators.</Resolution>
+   </Rule>
+   <Rule TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725">
+    <Resolution Name="Default">In member {0}, change parameter name {1} to {2} in order to match the identifier as it has been declared in {3}.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter {0} of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify 'CultureInfo.CurrentCulture' as the 'CultureInfo' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify 'CultureInfo.InvariantCulture'.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
+    <Resolution Name="IFormatProviderAlternate">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be based on input from the user, specify {3} as the 'IFormatProvider' parameter. Otherwise, if the result will based on input stored and accessed by software, such as when it is loaded from disk or from a database, specify {4}.</Resolution>
+    <Resolution Name="IFormatProviderAlternateString">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify {3} as the 'IFormatProvider' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify {4}.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, such as when sorting a list of items for display in a list box, specify 'StringComparison.CurrentCulture' or 'StringComparison.CurrentCultureIgnoreCase' as the 'StringComparison' parameter. If comparing case-insensitive identifiers, such as file paths, environment variables, or registry keys and values, specify 'StringComparison.OrdinalIgnoreCase'. Otherwise, if comparing case-sensitive identifiers, specify 'StringComparison.Ordinal'.</Resolution>
+   </Rule>
+   <Rule TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820">
+    <Resolution Name="IsNullOrEmpty">Replace the call to {0} in {1} with a call to 'String.IsNullOrEmpty'.</Resolution>
+   </Rule>
+   <Rule TypeName="UseOrdinalStringComparison" Category="Microsoft.Globalization" CheckId="CA1309">
+    <Resolution Name="StringComparison">{0} passes '{1}' as the 'StringComparison' parameter to {2}. To perform a non-linguistic comparison, specify 'StringComparison.Ordinal' or 'StringComparison.OrdinalIgnoreCase' instead.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change {0} to a property if appropriate.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

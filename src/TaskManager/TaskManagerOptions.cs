@@ -100,7 +100,7 @@ namespace TaskManager
                     "non-stop", "if should wait for user interaction", n => options.NonStop = n != null, true
                 },
                 {
-                    "non-stop-wait=", "the time in milliseconds to wait to tasks run when in non-stop mode", n => options.NonStopWait = Convert.ToInt32(n), true
+                    "non-stop-wait=", "the time in milliseconds to wait to tasks run when in non-stop mode", n => options.NonStopWait = Convert.ToInt32(n, CultureInfo.InvariantCulture), true
                 },
 
                 string.Empty,
@@ -120,7 +120,7 @@ namespace TaskManager
 
             if (ShowHelp)
             {
-                using (var writer = new StringWriter())
+                using (var writer = new StringWriter(CultureInfo.InvariantCulture))
                 {
                     optionsSet.WriteOptionDescriptions(writer);
                     HelpText = writer.ToString();

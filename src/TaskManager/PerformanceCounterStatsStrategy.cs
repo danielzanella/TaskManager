@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace TaskManager
 {
-	/// <summary>
-	/// An IStatsStrategy's that use PerformanceCounter to hold statistics data.
-	/// </summary>
-    public class PerformanceCounterStatsStrategy : IStatsStrategy
+    /// <summary>
+    /// An IStatsStrategy's that use PerformanceCounter to hold statistics data.
+    /// </summary>
+    public sealed class PerformanceCounterStatsStrategy : IStatsStrategy
     {
 		#region Fields
         /// <summary>
@@ -143,6 +138,12 @@ namespace TaskManager
 
         }
 
+        private static PerformanceCounterStatsData CreateStatsData(string name)
+        {
+            return new PerformanceCounterStatsData(
+                new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, name, false));
+        }
+
         /// <summary>
         /// Registers the performance counters with the operating system.
         /// </summary>
@@ -176,13 +177,7 @@ namespace TaskManager
 			TimeoutsPerSecond = CreateStatsData(TaskManagerInstaller.COUNTER_TIMEOUTS_PER_SECOND);
 			TotalExceptions = CreateStatsData(TaskManagerInstaller.COUNTER_EXCEPTIONS);
 			TotalTimeouts = CreateStatsData(TaskManagerInstaller.COUNTER_TIMEOUTS);
-        }
-
-        private PerformanceCounterStatsData CreateStatsData(string name)
-        {
-            return new PerformanceCounterStatsData(
-                new PerformanceCounter(TaskManagerInstaller.PERFORMANCE_COUNTER_CATEGORY, name, false));
-        }
+        }       
 		#endregion
     }
 }
