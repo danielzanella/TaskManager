@@ -9,6 +9,14 @@ namespace TaskManager.FunctionalTests
 	public class ProgramTest
 	{
 
+#if DEBUG
+        private const string Config = "Debug";
+        private const int NonStopWait = 15000;
+#else
+        private const string Config = "Release";
+        private const int NonStopWait = 30000;
+#endif
+
         [Test]
         public void RunForConsole_NoArgs_UseDefaultsAndRunTasks()
         {
@@ -93,7 +101,9 @@ namespace TaskManager.FunctionalTests
                 args = String.Format("-e {0} -s {1} ", eventLog, statsStrategy);
             }
 
-            args += "-non-stop -non-stop-wait 15000 " + extraArguments;
+            args += "-non-stop -non-stop-wait " + NonStopWait;
+            args += extraArguments;
+                
 
             return Run("TaskManager.exe", args);
 		}
@@ -102,12 +112,7 @@ namespace TaskManager.FunctionalTests
         {
             var taskManagerFolder = VSProjectHelper.GetProjectFolderPath("TaskManager");
 
-#if DEBUG
-            var config = "Debug";
-#else
-            var config = "Release";
-#endif
-            var exePath = Path.Combine(taskManagerFolder, string.Format(@"bin\{0}\{1}", config, exeName));
+            var exePath = Path.Combine(taskManagerFolder, string.Format(@"bin\{0}\{1}", Config, exeName));
          
             var output = ProcessHelper.Run(exePath, args, waitForExit);
             Assert.IsNotNull(output);
