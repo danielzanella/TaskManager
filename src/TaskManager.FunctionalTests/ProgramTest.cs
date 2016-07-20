@@ -23,7 +23,6 @@ namespace TaskManager.FunctionalTests
             ProcessHelper.KillAll("cmd");
         }
 
-
         [TestFixtureTearDown]
         public void TearDownAllTests()
         {
