@@ -64,10 +64,9 @@ You can choose some options to run command-line and Windows services:
 
 ####Usage:
 * Command-line
-
 ```shell
 TaskManager.exe -e Console -s Memory
-```
+``
 
 ```shell
 TaskManager.exe -e Windows -s PerformanceCounter
@@ -79,7 +78,6 @@ You can define parameters on Services Management Console (services.msc), in the 
 ```shell
 -e Console -s Memory
 ```
-
 ```shell
 -e Windows -s PerformanceCounter
 ```
