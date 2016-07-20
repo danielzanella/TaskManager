@@ -1,5 +1,17 @@
 TaskManager
 ======
+
+####Build
+[![Build status](https://ci.appveyor.com/api/projects/status/s0i1b1vklo6xupr1?svg=true)](https://ci.appveyor.com/project/giacomelli/TaskManager)
+
+####Code quality
+[![Coverage Status](https://coveralls.io/repos/giacomelli/TaskManager/badge.svg?branch=master&service=github)](https://coveralls.io/github/giacomelli/TaskManager?branch=master)
+[![FxCop](http://badgessharp.apphb.com/badges/giacomelli/TaskManager/FxCop)](https://ci.appveyor.com/project/giacomelli/TaskManager/build/artifacts)
+[![DupFinder](http://badgessharp.apphb.com/badges/giacomelli/TaskManager/DupFinder)](https://ci.appveyor.com/project/giacomelli/TaskManager/build/artifacts)
+
+####Release
+[![License](http://img.shields.io/:license-MIT-blue.svg)](https://raw.githubusercontent.com/giacomelli/TaskManager/master/LICENSE)
+
 C# Windows Service for scheduling execution of multiple tasks. Allows easy deployment of updates and server management.
 
 
