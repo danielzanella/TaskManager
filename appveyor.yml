@@ -45,7 +45,7 @@ after_build:
 
 test_script:
 - ps: >-
-    .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe -register:user "-targetargs:""src\TaskManager.UnitTests\bin\$env:CONFIGURATION\TaskManager.UnitTests.dll","src\TaskManager.FunctionalTests\bin\$env:CONFIGURATION\TaskManager.FunctionalTests.dll"" /noshadow" -filter:"+[TaskManager]*" -output:opencoverCoverage.xml
+    .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe -register:user "-targetargs:""src\TaskManager.UnitTests\bin\$env:CONFIGURATION\TaskManager.UnitTests.dll","src\TaskManager.FunctionalTests\bin\$env:CONFIGURATION\TaskManager.FunctionalTests.dll"" -filter:"+[TaskManager]*" -output:opencoverCoverage.xml
 
 
 
