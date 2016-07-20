@@ -35,7 +35,7 @@ after_build:
     
     .\tools\BadgesSharpCmd.exe -o giacomelli -r TaskManager -b StyleCop -c ".\tools\stylecop-report.violations.xml" -a %GITHUB_REPO_TOKEN%
     
-    C:\ProgramData\chocolatey\lib\resharper-clt.portable\tools\dupfinder.exe /output=.\tools\dupFinder-Report.xml /show-text /exclude=**\*Test.cs;**\*.feature.cs;**\BundleConfig.cs .\src\TaskManager.sln
+    C:\ProgramData\chocolatey\lib\resharper-clt.portable\tools\dupfinder.exe /output=.\tools\dupFinder-Report.xml /show-text /exclude=**\*Test.cs;**\*.feature.cs;**\BundleConfig.cs;**\Mono.Options\Options.cs .\src\TaskManager.sln
     
     .\tools\BadgesSharpCmd.exe -o giacomelli -r TaskManager -b DupFinder -c .\tools\dupFinder-Report.xml -a %GITHUB_REPO_TOKEN%
 
