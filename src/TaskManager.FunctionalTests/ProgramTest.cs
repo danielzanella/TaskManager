@@ -98,7 +98,7 @@ namespace TaskManager.FunctionalTests
             return Run("TaskManager.exe", args);
 		}
 
-        private static string Run(string exeName, string args = null, bool waitForExit = true)
+        public static string Run(string exeName, string args = null, bool waitForExit = true)
         {
             var taskManagerFolder = VSProjectHelper.GetProjectFolderPath("TaskManager");
 

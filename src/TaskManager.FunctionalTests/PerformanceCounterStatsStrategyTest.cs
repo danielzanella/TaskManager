@@ -9,6 +9,7 @@ namespace TaskManager.FunctionalTests
 		[Test]
 		public void Constructor_NoArgs_PerformanceCountersCreated ()
 		{
+            ProgramTest.Run("ServiceUninstall.cmd");   
 			var target = new PerformanceCounterStatsStrategy();
 			Assert.IsNotNull(target.AverageExecutionTime);
 			Assert.IsNotNull(target.AverageLagTime);
