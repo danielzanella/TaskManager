@@ -12,10 +12,10 @@ namespace TaskManager.FunctionalTests
         [Test]
         public void RunForConsole_NoArgs_UseDefaultsAndRunTasks()
         {
-            var output = Run();
+            var output = RunTaskManagerExe();
             StringAssert.Contains("Initializing service...", output);
-            StringAssert.Contains("Event log: TaskManager.WindowsEventLog", output);
-            StringAssert.Contains("Stats strategy: TaskManager.PerformanceCounterStatsStrategy", output);
+            StringAssert.Contains("Event log: WindowsEventLog", output);
+            StringAssert.Contains("Stats strategy: PerformanceCounterStatsStrategy", output);
             StringAssert.Contains("TaskModule2 starting...", output);
             StringAssert.Contains("TaskModule2 ended.", output);
         }
@@ -23,10 +23,10 @@ namespace TaskManager.FunctionalTests
         [Test]
 		public void RunForConsole_ConsoleEventLogAndMemoryStatsStrategy_RunTasks()
 		{
-			var output = Run ("Console", "Memory");
+			var output = RunTaskManagerExe("Console", "Memory");
             StringAssert.Contains("Initializing service...", output);
-            StringAssert.Contains("Event log: TaskManager.ConsoleEventLog", output);
-            StringAssert.Contains("Stats strategy: TaskManager.MemoryStatsStrategy", output);
+            StringAssert.Contains("Event log: ConsoleEventLog", output);
+            StringAssert.Contains("Stats strategy: MemoryStatsStrategy", output);
             StringAssert.Contains("Scanning path", output);
             StringAssert.Contains("Module found:", output);
             StringAssert.Contains("Found 2 task definitions in configuration file", output);
@@ -47,11 +47,11 @@ namespace TaskManager.FunctionalTests
 		[Test]
 		public void RunForConsole_WindowsEventLogAndPerformanceCounterStatsStrategy_RunTasks()
 		{
-			var output = Run ("Windows", "PerformanceCounter");
+			var output = RunTaskManagerExe("Windows", "PerformanceCounter");
 
             StringAssert.Contains("Initializing service...", output);
-            StringAssert.Contains("Event log: TaskManager.WindowsEventLog", output);
-            StringAssert.Contains("Stats strategy: TaskManager.PerformanceCounterStatsStrategy", output);
+            StringAssert.Contains("Event log: WindowsEventLog", output);
+            StringAssert.Contains("Stats strategy: PerformanceCounterStatsStrategy", output);
             StringAssert.Contains("TaskModule2 starting...", output);
             StringAssert.Contains("TaskModule2 ended.", output);            
         }
@@ -59,10 +59,10 @@ namespace TaskManager.FunctionalTests
         [Test]
         public void RunForConsole_Help_ShowsHelp()
         {
-            var output = Run(null, null, "-help");
+            var output = RunTaskManagerExe(null, null, "-help");
 
             StringAssert.Contains("Usage:", output);
-            StringAssert.Contains("TaskManager -e <event log> -s <stats>", output);
+            StringAssert.Contains("TaskManager.exe -e <event log> -s <stats>", output);
             StringAssert.Contains("-e, --event-log=VALUE", output);
             StringAssert.Contains("-s, --stats=VALUE", output);
             StringAssert.Contains("-h, --help ", output);
@@ -70,16 +70,22 @@ namespace TaskManager.FunctionalTests
             StringAssert.Contains("TaskManager.exe -e Windows -s PerformanceCounter", output);
         }
 
-        private static string Run(string eventLog = null, string statsStrategy = null, string extraArguments = null)
-		{
-			var taskManagerFolder = VSProjectHelper.GetProjectFolderPath ("TaskManager");
+        [Test]
+        public void WindowsService_Cmds_InstallAndUninstall()
+        {
+            var output = Run("ServiceUninstall.cmd");
+            output = Run("ServiceInstall.cmd");
 
-#if DEBUG
-            var config = "Debug";
-#else
-            var config = "Release";
-#endif
-            var taskManagerExe = Path.Combine (taskManagerFolder, string.Format(@"bin\{0}\TaskManager.exe", config));
+            // Check if service was really installed.
+            ServiceAssert.IsStopped("TaskManager");
+            
+            output = Run("ServiceStart.cmd", waitForExit:false);
+            output = Run("ServiceStop.cmd", waitForExit:false);
+            output = Run("ServiceUninstall.cmd");            
+        }
+
+        private static string RunTaskManagerExe(string eventLog = null, string statsStrategy = null, string extraArguments = null)
+		{            
             var args = string.Empty;
 
             if (eventLog != null)          
@@ -89,10 +95,26 @@ namespace TaskManager.FunctionalTests
 
             args += "-non-stop -non-stop-wait 15000 " + extraArguments;
 
-            var output = ProcessHelper.Run (taskManagerExe, args, true);
-			Assert.IsNotNull (output);
-
-            return output;       		
+            return Run("TaskManager.exe", args);
 		}
-	}
+
+        private static string Run(string exeName, string args = null, bool waitForExit = true)
+        {
+            var taskManagerFolder = VSProjectHelper.GetProjectFolderPath("TaskManager");
+
+#if DEBUG
+            var config = "Debug";
+#else
+            var config = "Release";
+#endif
+            var exePath = Path.Combine(taskManagerFolder, string.Format(@"bin\{0}\{1}", config, exeName));
+         
+            var output = ProcessHelper.Run(exePath, args, waitForExit);
+            Assert.IsNotNull(output);
+
+            StringAssert.DoesNotContain("SecurityException", output, "You do not have rights to install something, maybe the custom event log. Try 'Run as Administrator'.");
+
+            return output;
+        }
+    }
 }
