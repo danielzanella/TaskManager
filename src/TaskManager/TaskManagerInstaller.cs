@@ -117,12 +117,30 @@ namespace TaskManager
         /// </summary>
         static TaskManagerInstaller()
         {
+            string defaultName = "TaskManager", name = defaultName;
+            string defaultDescription = "Task Manager", description = defaultDescription;
+
             // Attempts to load the corresponding .config file during install/uninstall phase.
             System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(typeof(TaskManagerInstaller).Assembly.Location);
-            SERVICE_NAME = config.AppSettings.Settings["Instance.Name"].Value ?? "TaskManager";
-            SERVICE_DESCRIPTION = config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager";
-            PERFORMANCE_COUNTER_CATEGORY = config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager";
-            PERFORMANCE_COUNTER_DESCRIPTION = (config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager") + "performance counters";
+            if (null != config.AppSettings && null != config.AppSettings.Settings)
+            {
+                name = (config.AppSettings.Settings["Instance.Name"] ?? new KeyValueConfigurationElement(null, defaultName)).Value;
+                description = (config.AppSettings.Settings["Instance.Description"] ?? new KeyValueConfigurationElement(null, defaultDescription)).Value;
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    name = defaultName;
+                }
+
+                if (string.IsNullOrWhiteSpace(description))
+                {
+                    description = defaultDescription;
+                }
+            }
+
+            SERVICE_NAME = name;
+            SERVICE_DESCRIPTION = PERFORMANCE_COUNTER_CATEGORY = description;
+            PERFORMANCE_COUNTER_DESCRIPTION = PERFORMANCE_COUNTER_CATEGORY + " performance counters";
 
             COUNTERS = new CounterCreationData[13];
 
