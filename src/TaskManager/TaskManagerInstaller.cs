@@ -2,6 +2,7 @@ namespace TaskManager
 {
     using System;
     using System.ComponentModel;
+    using System.Configuration;
     using System.Configuration.Install;
     using System.Diagnostics;
     using System.ServiceProcess;
@@ -11,8 +12,10 @@ namespace TaskManager
     /// </summary>
     [RunInstaller(true)]
     public partial class TaskManagerInstaller : Installer
-    {		
-		/// <summary>
+    {
+        #region Fields
+
+        /// <summary>
 		/// The counters creation data.
 		/// </summary>
         public static CounterCreationData[] COUNTERS;
@@ -20,22 +23,22 @@ namespace TaskManager
 		/// <summary>
 		/// The service name.
 		/// </summary>
-        public static readonly string SERVICE_NAME = System.Configuration.ConfigurationManager.AppSettings["Instance.Name"] ?? "TaskManager";
+        public static readonly string SERVICE_NAME;// = System.Configuration.ConfigurationManager.AppSettings["Instance.Name"] ?? "TaskManager";
 
 		/// <summary>
 		/// The service description.
 		/// </summary>
-        public static readonly string SERVICE_DESCRIPTION = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
+        public static readonly string SERVICE_DESCRIPTION;// = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
 
 		/// <summary>
 		/// The performance counter category.
 		/// </summary>
-        public static readonly string PERFORMANCE_COUNTER_CATEGORY = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
+        public static readonly string PERFORMANCE_COUNTER_CATEGORY;// = System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager";
 
 		/// <summary>
 		/// The performance counter description.
 		/// </summary>
-        public static readonly string PERFORMANCE_COUNTER_DESCRIPTION = (System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager") + " performance counters";
+        public static readonly string PERFORMANCE_COUNTER_DESCRIPTION;// = (System.Configuration.ConfigurationManager.AppSettings["Instance.Description"] ?? "Task Manager") + " performance counters";
 
 		/// <summary>
 		/// The spawed threads counter.
@@ -107,11 +110,19 @@ namespace TaskManager
         private EventLogInstaller _eventLogInstaller;
         private PerformanceCounterInstaller _perfCounterInstaller;
 
+        #endregion
+
         /// <summary>
         /// Initializes static members of the <see cref="TaskManagerInstaller"/> class.
         /// </summary>
         static TaskManagerInstaller()
         {
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(typeof(TaskManagerInstaller).Assembly.Location);
+            SERVICE_NAME = config.AppSettings.Settings["Instance.Name"].Value ?? "TaskManager";
+            SERVICE_DESCRIPTION = config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager";
+            PERFORMANCE_COUNTER_CATEGORY = config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager";
+            PERFORMANCE_COUNTER_DESCRIPTION = (config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager") + "performance counters";
+
             COUNTERS = new CounterCreationData[13];
 
             COUNTERS[0] = new CounterCreationData(COUNTER_SPAWNED_THREADS, "Number of active threads.", PerformanceCounterType.NumberOfItems32);
