@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
     /// <summary>
-    /// An IEventLog's implementation that write events messages to the Console.
+    /// IEventLog implementation that writes to the standard console output.
     /// </summary>
     public class ConsoleEventLog : IEventLog
     {
 		/// <summary>
-		/// Write an information event.
+		/// Writes an information event.
 		/// </summary>
 		/// <param name="message">The event message.</param>
         public void WriteInfo(string message)
@@ -21,7 +21,7 @@ namespace TaskManager
         }
 
 		/// <summary>
-		/// Write an error event.
+		/// Writes an error event.
 		/// </summary>
 		/// <param name="message">The event message.</param>
         public void WriteError(string message)
@@ -30,7 +30,7 @@ namespace TaskManager
         }
 
 		/// <summary>
-		/// Write a warning event.
+		/// Writes a warning event.
 		/// </summary>
 		/// <param name="message">The event message.</param>
         public void WriteWarning(string message)
@@ -39,7 +39,7 @@ namespace TaskManager
         }
 
 		/// <summary>
-		/// Close the event log.
+		/// Closes the event log.
 		/// </summary>
         public void Close()
         {            

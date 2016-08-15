@@ -3,7 +3,7 @@
 namespace TaskManager
 {
     /// <summary>
-    /// An IStatsStrategy's that use PerformanceCounter to hold statistics data.
+    /// IStatsData implementation that outputs to Windows Performance Counters.
     /// </summary>
     public sealed class PerformanceCounterStatsStrategy : IStatsStrategy
     {

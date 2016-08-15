@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
 	/// <summary>
-	/// An IStatsData's implementation that just in memory stats data.
+	/// Simple IStatsData implementation that keeps statistic data in memory.
 	/// </summary>
     [DebuggerDisplay("{RawValue}")]
     public class MemoryStatsData : IStatsData

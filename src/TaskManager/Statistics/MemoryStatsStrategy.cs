@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
 	/// <summary>
-	/// An IStatsStrategy's implementation that use just in memory properties to hold stats data.
+	/// IStatsStrategy implementation that keeps statistic data in memory.
 	/// </summary>
     public sealed class MemoryStatsStrategy : IStatsStrategy
     {

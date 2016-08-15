@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
 	/// <summary>
-	/// An IStatsData's implementation that use  PerformanceCounter to hold stats data.
+    /// IStatsData implementation that outputs to Windows Performance Counters.
 	/// </summary>
 	public sealed class PerformanceCounterStatsData : IStatsData, IDisposable
     {

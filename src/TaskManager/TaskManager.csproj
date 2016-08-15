@@ -79,15 +79,15 @@
   <ItemGroup>
     <Compile Include="ArgumentsHelper.cs" />
     <Compile Include="CommandLine.cs" />
-    <Compile Include="ConsoleEventLog.cs" />
-    <Compile Include="IEventLog.cs" />
-    <Compile Include="IStatsData.cs" />
-    <Compile Include="IStatsStrategy.cs" />
-    <Compile Include="MemoryStatsData.cs" />
-    <Compile Include="MemoryStatsStrategy.cs" />
+    <Compile Include="EventLog\ConsoleEventLog.cs" />
+    <Compile Include="EventLog\IEventLog.cs" />
+    <Compile Include="Statistics\IStatsData.cs" />
+    <Compile Include="Statistics\IStatsStrategy.cs" />
+    <Compile Include="Statistics\MemoryStatsData.cs" />
+    <Compile Include="Statistics\MemoryStatsStrategy.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="PerformanceCounterStatsData.cs" />
-    <Compile Include="PerformanceCounterStatsStrategy.cs" />
+    <Compile Include="Statistics\PerformanceCounterStatsData.cs" />
+    <Compile Include="Statistics\PerformanceCounterStatsStrategy.cs" />
     <Compile Include="TaskManagerOptions.cs" />
     <Compile Include="TaskSupervisor.cs" />
     <Compile Include="TaskManagerService.cs">
@@ -106,7 +106,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowsEventLog.cs" />
+    <Compile Include="EventLog\WindowsEventLog.cs" />
     <Compile Include="Mono.Options\Options.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>

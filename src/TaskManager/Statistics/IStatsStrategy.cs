@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
 	/// <summary>
-	/// Defines an interface to a strategy to statistics used by TaskManager.
+	/// Defines an interface to a strategy to output runtime statistics.
 	/// </summary>
     public interface IStatsStrategy : IDisposable
     {

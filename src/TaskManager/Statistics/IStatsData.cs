@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TaskManager
 {
 	/// <summary>
-	/// Defines an interface to a statistic data.
+	/// Defines an interface to statistic data.
 	/// </summary>
     public interface IStatsData
     {

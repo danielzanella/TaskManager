@@ -8,14 +8,14 @@ using Mono.Options;
 namespace TaskManager
 {
     /// <summary>
-    /// TaskManager's command line.
+    /// TaskManager's CLI.
     /// </summary>
     public static class CommandLine
     {
         /// <summary>
-        /// Runs the command line.
+        /// Runs TaskManager in a console window.
         /// </summary>
-        /// <param name="args">The arguments.</param>
+        /// <param name="args">The command line arguments.</param>
         public static void Run(string[] args)
         {
             ShowConsoleWindow();
@@ -23,8 +23,9 @@ namespace TaskManager
         }
 
         /// <summary>
-        /// Runs the task manager from the console.
+        /// Runs TaskManager in a console window.
         /// </summary>
+        /// <param name="args">The command line arguments.</param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "All errors should be write to catch.")]
         private static void RunFromConsole(string[] args)
         {
@@ -121,7 +122,7 @@ namespace TaskManager
         private static void ShowHeader()
         {
             NewLine();
-            Show("TaskManager by Daniel Zanella (@daniel_zanella)", typeof(CommandLine).Assembly.GetName().Version);
+            Show("TaskManager CLI v{0} (Windows Service name: {1})", typeof(CommandLine).Assembly.GetName().Version, TaskManagerInstaller.SERVICE_NAME);
             NewLine();
         }
       

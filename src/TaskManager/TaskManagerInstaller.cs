@@ -117,6 +117,7 @@ namespace TaskManager
         /// </summary>
         static TaskManagerInstaller()
         {
+            // Attempts to load the corresponding .config file during install/uninstall phase.
             System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(typeof(TaskManagerInstaller).Assembly.Location);
             SERVICE_NAME = config.AppSettings.Settings["Instance.Name"].Value ?? "TaskManager";
             SERVICE_DESCRIPTION = config.AppSettings.Settings["Instance.Description"].Value ?? "Task Manager";

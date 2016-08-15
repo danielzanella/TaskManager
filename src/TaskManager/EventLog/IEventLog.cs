@@ -12,25 +12,25 @@ namespace TaskManager
     public interface IEventLog
     {
         /// <summary>
-        /// Write an information event.
+        /// Writes an information event.
         /// </summary>
         /// <param name="message">The event message.</param>
         void WriteInfo(string message);
 
         /// <summary>
-        /// Write an error event.
+        /// Writes an error event.
         /// </summary>
         /// <param name="message">The event message.</param>
         void WriteError(string message);
 
         /// <summary>
-        /// Write a warning event.
+        /// Writes a warning event.
         /// </summary>
         /// <param name="message">The event message.</param>
         void WriteWarning(string message);
 
         /// <summary>
-        /// Close the event log.
+        /// Closes the event log.
         /// </summary>
         void Close();
     }
