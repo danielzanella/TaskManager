@@ -6,14 +6,14 @@
       </ItemGroup>
  	
       <Target Name="AfterBuild">
-          <Message Text="### Copying $(MSBuildProjectName) files ..." Importance="high" />
+          <Message Text="### (MSBUILD) Copying $(MSBuildProjectName) files ..." Importance="high" />
 
           <Copy
               SourceFiles="@(FilesToCopy)"
-              DestinationFolder="$(MSBuildProjectDirectory)\..\TaskManager\bin\$(Configuration)\Task.Sample\"/>   
+              DestinationFolder="$(MSBuildProjectDirectory)\..\TaskManager\bin\$(Configuration)\modules\Task.Sample\"/>   
               
           <Copy
 	      SourceFiles="@(FilesToCopy)"
-              DestinationFolder="$(MSBuildProjectDirectory)\..\TaskManager.FunctionalTests\bin\$(Configuration)\Task.Sample\"/> 
+              DestinationFolder="$(MSBuildProjectDirectory)\..\TaskManager.FunctionalTests\bin\$(Configuration)\modules\Task.Sample\"/> 
     </Target>
 </Project>

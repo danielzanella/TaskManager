@@ -2,6 +2,7 @@ namespace TaskManager
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.IO;
     using System.IO.Compression;
     using System.Reflection;
@@ -147,7 +148,21 @@ namespace TaskManager
         /// <param name="startImmediately">True if execution should be started immediately after configuring all modules, false if modules should be configured but not started.</param>
         public static void LoadAndConfigure(bool startImmediately)
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modules");
+
+            string cfgPath = ConfigurationManager.AppSettings["Modules.Path"];
+
+            if (null != cfgPath)
+            {
+                if (!Directory.Exists(cfgPath))
+                {
+                    TaskManagerService.Logger.Log(string.Format("Could not find the specified path \"{0}\", using defaults.", cfgPath));
+                }
+                else
+                {
+                    basePath = cfgPath;
+                }
+            }
 
             List<string> filesToScan = new List<string>();
 
