@@ -108,9 +108,8 @@ namespace TaskManager
             LogInfo("Starting service...");
             try
             {
-                var options = TaskManagerOptions.Create("Start parameters: ", args);
-                Initialize(options.EventLog);
-                TaskSupervisor.Initialize(options.StatsStrategy);
+                Initialize(new WindowsEventLog());
+                TaskSupervisor.Initialize(new PerformanceCounterStatsStrategy());
                 ModuleSupervisor.Initialize();
 
                 LogInfo("Service successfully started...");
