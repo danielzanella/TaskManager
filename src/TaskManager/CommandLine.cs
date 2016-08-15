@@ -104,6 +104,7 @@ namespace TaskManager
             catch (Exception e)
             {
                 TaskManagerService.LogError("Unable to stop service.", e);
+                WaitUserInteraction(options);
                 return;
             }
 
